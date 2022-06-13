@@ -7,7 +7,6 @@ export default async (req, res) => {
 
       const group = {
           groupName: body.groupName,
-          members: {},
           icon: false,
           penaltySize: 50,
       };
