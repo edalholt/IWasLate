@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { React, useEffect, useState } from "react";
-import { Box, HStack, Text, FormControl, FormLabel, Flex, FormErrorMessage, FormHelperText, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
+import { Box, HStack, Text, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
 import { HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
@@ -87,7 +87,22 @@ const groupPage = () => {
     }, [router.isReady]);
 
     return !(groupData && router.isReady) ? (
-        "loading"
+      <Progress size='lg' isIndeterminate />
+      ): !(groupData.groupName) ? (
+        <Alert
+          status='error'
+          variant='subtle'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+          textAlign='center'
+          height='100vh'
+        >
+          <AlertIcon boxSize='40px' mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize='lg'>
+            Invalid group URL
+          </AlertTitle>
+        </Alert>
       ) : (
     <>
         <Box p={3} bgGradient='linear(to-r, #2b92ba, #033f57)'>
@@ -114,7 +129,7 @@ const groupPage = () => {
         </Flex>
         </Box>
 
-        <Wrap spacing='30px' m={5} justify='center'>
+        <Wrap spacing='70px' m={5} justify='center'>
         {groupData.memberData.map(member => 
         <WrapItem>
         <Box _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'  minHeight={150}>
