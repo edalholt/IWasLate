@@ -18,7 +18,8 @@ export default async (req, res) => {
   else if (req.method === 'DELETE') {
     try {
       const { id } = req.query;
-      const snapshot = await db.collection('group').doc(id).delete();
+      const docRef = await db.collection('group').doc(id);
+      await db.recursiveDelete(docRef);
       res.status(200).send(JSON.stringify({status: "deleted"}));
     } catch (e) {
       res.status(400).end();

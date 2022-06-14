@@ -5,58 +5,62 @@ import {
     FormHelperText,
     Input,
     Button,
-    InputGroup,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
+    Box,
   } from '@chakra-ui/react'
   import { ArrowForwardIcon } from '@chakra-ui/icons'
-  import styles from '../styles/Home.module.css'
-  import { React, useEffect, useRef, useState } from "react";
+  import { React, useState } from "react";
+import axios from 'axios';
+import { useRouter } from "next/router";
 
 const toGroup = () => {
+    const router = useRouter();
+    const [name, setName] = useState(null);
+    const [isError, setError] = useState(false);
+    const handleInputChange = (e) => setName(e.target.value);
 
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const validateName = () => {
+        if(name === null || !/[a-zA-Z]/.test(name)){
+          setError(true);
+          return false;
+        }
+        setError(false);
+        return true;
+      };
+
+    const createGroup = async () => {
+      axios.post(`/api/group/new`, {
+        groupName: name,
+      })
+      .then(function (response) {
+        console.log(response);
+        router.push(`/group/${response.data.id}`);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
 
     return (
         <>
-        <div className={styles.card}>
-        <form>
-        <FormControl>
-        <FormLabel htmlFor='group'>Group name</FormLabel>
-        <InputGroup size='sm'>
-        <Input id='group' type='text' />
-        <Button rightIcon={<ArrowForwardIcon />} colorScheme='teal' variant='outline' type='submit'>
+        <Box _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'>
+        <Box p={6} minWidth={400}  minHeight={200}>
+        <FormControl isInvalid={isError}>
+            <FormLabel>Group name</FormLabel>
+            <Input
+              id='name'
+              type='name'
+              value={name}
+              onChange={handleInputChange}
+            />
+            {!isError ? (null) : (
+              <FormErrorMessage>Please enter name</FormErrorMessage>
+            )}
+        </FormControl>
+        <Button mt={3} rightIcon={<ArrowForwardIcon />} colorScheme='teal' variant='outline' onClick={() => {if(validateName()){createGroup();}}}>
             Go
         </Button>
-        </InputGroup>
-        <FormHelperText>Group name</FormHelperText>
-        </FormControl>
-        </form>
-        </div>
-
-        <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-            <ModalHeader>Make new group</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-                Creation a new group named ...
-            </ModalBody>
-
-            <ModalFooter>
-            <Button variant='ghost' mr={2}>No</Button>
-            <Button colorScheme='blue' onClick={onClose}>
-                Yes
-            </Button>
-            </ModalFooter>
-        </ModalContent>
-        </Modal>
+        </Box>
+        </Box>
     </>
     );
 }
