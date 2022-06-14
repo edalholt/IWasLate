@@ -35,7 +35,7 @@ const toGroup = () => {
             Go
         </Button>
         </InputGroup>
-        <FormHelperText>Choose available name</FormHelperText>
+        <FormHelperText>Group name</FormHelperText>
         </FormControl>
         </form>
         </div>
