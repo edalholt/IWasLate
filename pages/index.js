@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import ToGroup from '../components/toGroup'
+import ToGroup from '../components/ToGroup'
 
 export default function Home() {
   return (
