@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
+import { Image } from '@chakra-ui/react'
 import { React, useEffect, useState } from "react";
 import { Box, HStack, Text, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
 import { HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
+import { margin } from "@mui/system";
 
 const groupPage = () => {
     const router = useRouter();
@@ -52,6 +55,18 @@ const groupPage = () => {
             console.log(error);
           });
     }
+    const beerToggle = async (isOn) => {
+      axios.put(`/api/group/${id}/`, {
+          icon: isOn,
+        })
+        .then(function (response) {
+          console.log(response);
+          fetchGroup();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
     const removeMember = async (key) => {
       axios.delete(`/api/group/member`, {data: {
           memberID: key,
@@ -121,6 +136,15 @@ const groupPage = () => {
                 <MenuItem onClick={onOpen} icon={<AddIcon />}>
                 Add member
                 </MenuItem>
+                {groupData.icon ? (
+                <MenuItem onClick={() => beerToggle(false)} icon={<AttachMoneyIcon fontSize="small" sx={{ m: -0.3, marginTop: 0.2 }}/>}>
+                Cash mode
+                </MenuItem>
+                ) : (
+                <MenuItem onClick={() => beerToggle(true)} icon={<Image src="/beer.png" width={4}/>}>
+                Beer mode
+                </MenuItem>
+                )}
                 <MenuItem onClick={deleteGroup} icon={<DeleteIcon />}>
                 Delete group
                 </MenuItem>
@@ -139,7 +163,14 @@ const groupPage = () => {
         
         <HStack justify={'center'} pt={3}>
         <ChevronDownIcon w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, -1)}/>
-        <Text pl={3} pr={3} fontSize="2xl">{member.amount * groupData.penaltySize}</Text>
+        {!groupData.icon ? (
+          <Text pl={3} pr={3} fontSize="2xl">{member.amount * groupData.penaltySize}</Text>
+        ) : (
+          <>
+          <Text pl={3} pr={3} fontSize="2xl">{member.amount}</Text>
+          <Image src="/beer.png" width={6}/>
+          </>
+        )}
         <ChevronUpIcon w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, 1)}/>
         </HStack>
         </Box>

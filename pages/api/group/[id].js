@@ -15,6 +15,17 @@ export default async (req, res) => {
       res.status(400).end();
     }
   }
+  if (req.method === 'PUT') {
+    try {
+      const { id } = req.query;
+      const snapshot = await db.collection('group').doc(id).get();
+      await db.collection("group").doc(id).update(req.body);
+    
+      res.status(200).send(JSON.stringify({status: "ok"}));
+    } catch (e) {
+      res.status(400).end();
+    }
+  }
   else if (req.method === 'DELETE') {
     try {
       const { id } = req.query;
