@@ -1,4 +1,4 @@
-import db from '../../../utils/db';
+import db from '../db';
 
 export default async (req, res) => {
   if (req.method === 'POST') {

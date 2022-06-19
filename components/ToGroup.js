@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 
 const toGroup = () => {
     const router = useRouter();
-    const [name, setName] = useState(null);
+    const [name, setName] = useState('');
     const [isError, setError] = useState(false);
     const handleInputChange = (e) => setName(e.target.value);
 
