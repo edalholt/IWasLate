@@ -5,7 +5,7 @@ import { Box, HStack, Text, FormControl, Progress, FormLabel, Flex, FormErrorMes
 import { HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
-import { margin } from "@mui/system";
+import UrlBox from "../../components/URL";
 
 const groupPage = () => {
     const router = useRouter();
@@ -153,6 +153,7 @@ const groupPage = () => {
         </Flex>
         </Box>
 
+        <Flex direction={'column'} minHeight={'90vh'}>
         <Wrap spacing='70px' m={5} justify='center'>
         {groupData.memberData.map(member => 
         <WrapItem>
@@ -185,6 +186,10 @@ const groupPage = () => {
         </Box>
         </WrapItem>
        </Wrap>
+
+      <Spacer/>
+      <UrlBox />
+      </Flex>
 
        <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
