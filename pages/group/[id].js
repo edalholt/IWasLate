@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { Image } from '@chakra-ui/react'
 import { React, useEffect, useState } from "react";
 import { Box, HStack, Text, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
-import { HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { SettingsIcon, HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
 import UrlBox from "../../components/URL";
@@ -12,9 +12,12 @@ const groupPage = () => {
     const {id} = router.query;
     const [groupData, setGroupData] = useState(null);
     const [name, setName] = useState(null);
+    const [penaltySize, setPenaltySize] = useState();
     const [isError, setError] = useState(false);
     const {isOpen, onOpen, onClose } = useDisclosure();
+    const {isOpen: isOpenPenalty, onOpen: onOpenPenalty, onClose: onClosePenalty } = useDisclosure();
     const handleInputChange = (e) => setName(e.target.value);
+    const handlePenaltyChange = (e) => setPenaltySize(e.target.value);
 
     const validateName = () =>{
       if(name === null || !/[a-zA-Z]/.test(name)){
@@ -37,9 +40,10 @@ const groupPage = () => {
     };
 
     const fetchGroup = async () => {
-        const res = await axios.get(`/api/group/${id}/`);
-        setGroupData(res.data);
-        console.log(res.data);
+        axios.get(`/api/group/${id}/`)
+        .then(function (response) {
+          setGroupData(response.data);
+        });
     };
 
     const penaltyUpdate = async (key, amount) => {
@@ -55,10 +59,8 @@ const groupPage = () => {
             console.log(error);
           });
     }
-    const beerToggle = async (isOn) => {
-      axios.put(`/api/group/${id}/`, {
-          icon: isOn,
-        })
+    const groupUpdate = async (data) => {
+      axios.put(`/api/group/${id}/`, data)
         .then(function (response) {
           console.log(response);
           fetchGroup();
@@ -101,6 +103,12 @@ const groupPage = () => {
         }
     }, [router.isReady]);
 
+    useEffect(() => {
+      if(groupData){
+        setPenaltySize(groupData.penaltySize);
+      }
+  }, [groupData]);
+
     return !(groupData && router.isReady) ? (
       <Progress size='lg' isIndeterminate />
       ): !(groupData.groupName) ? (
@@ -137,14 +145,17 @@ const groupPage = () => {
                 Add member
                 </MenuItem>
                 {groupData.icon ? (
-                <MenuItem onClick={() => beerToggle(false)} icon={<AttachMoneyIcon fontSize="small" sx={{ m: -0.3, marginTop: 0.2 }}/>}>
+                <MenuItem onClick={() => groupUpdate({icon: false })} icon={<AttachMoneyIcon fontSize="small" sx={{ m: -0.3, marginTop: 0.2 }}/>}>
                 Cash mode
                 </MenuItem>
                 ) : (
-                <MenuItem onClick={() => beerToggle(true)} icon={<Image src="/beer.png" width={4}/>}>
+                <MenuItem onClick={() => groupUpdate({icon: true })} icon={<Image src="/beer.png" width={4}/>}>
                 Beer mode
                 </MenuItem>
                 )}
+                <MenuItem onClick={onOpenPenalty} icon={<SettingsIcon />}>
+                Change penalty size
+                </MenuItem>
                 <MenuItem onClick={deleteGroup} icon={<DeleteIcon />}>
                 Delete group
                 </MenuItem>
@@ -214,6 +225,30 @@ const groupPage = () => {
           <ModalFooter>
             <Button variant='ghost' mr={3} onClick={onClose}>Close</Button>
             <Button type="submit" colorScheme='blue' onClick={() => {if(validateName()){newMember(); onClose(); setName(null);}}}>Add</Button>       
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isOpenPenalty} onClose={onClosePenalty}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Change penalty size</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          <FormControl>
+            <FormLabel>Amount</FormLabel>
+            <Input
+              id='name'
+              type='number'
+              value={penaltySize}
+              onChange={handlePenaltyChange}
+            />
+          </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button variant='ghost' mr={3} onClick={onClosePenalty}>Close</Button>
+            <Button type="submit" colorScheme='blue' onClick={() => {onClosePenalty(); groupUpdate({penaltySize: penaltySize})}}>Update</Button>       
           </ModalFooter>
         </ModalContent>
       </Modal>
