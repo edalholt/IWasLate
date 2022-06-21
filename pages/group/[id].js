@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import { Image } from '@chakra-ui/react'
+import { background, Image } from '@chakra-ui/react'
 import { React, useEffect, useState } from "react";
-import { Box, HStack, Text, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
+import { Box, HStack, Text, CloseButton, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
 import { SettingsIcon, HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
@@ -169,12 +169,12 @@ const groupPage = () => {
         {groupData.memberData.map(member => 
         <WrapItem>
         <Box _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'  minHeight={150}>
-        <CloseIcon w={3} h={3} ml={2} _hover={{ color: "teal.600" }} onClick={() => removeMember(member.id)} />
+        <CloseButton size={'md'} onClick={() => removeMember(member.id)} />
         <Box minWidth={300} p={5} align={'center'}>
         <Text fontSize="xl">{member.name}</Text>
         
         <HStack justify={'center'} pt={3}>
-        <ChevronDownIcon w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, -1)}/>
+        <ChevronDownIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, -1)}/>
         {!groupData.icon ? (
           <Text pl={3} pr={3} fontSize="2xl">{member.amount * groupData.penaltySize}</Text>
         ) : (
@@ -183,7 +183,7 @@ const groupPage = () => {
           <Image src="/beer.png" width={6}/>
           </>
         )}
-        <ChevronUpIcon w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, 1)}/>
+        <ChevronUpIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, 1)}/>
         </HStack>
         </Box>
         </Box>
@@ -191,7 +191,7 @@ const groupPage = () => {
         )}
 
         <WrapItem >
-        <Box _hover={{ borderColor: "teal.600" }} onClick={onOpen} minWidth={300} minHeight={150} p={5} borderWidth='1px' borderRadius='lg' align={'center'}>
+        <Box _hover={{ borderColor: "teal.600" }} cursor={'pointer'} onClick={onOpen} minWidth={300} minHeight={150} p={5} borderWidth='1px' borderRadius='lg' align={'center'}>
         <Text pt={7} fontSize="xl">Add member</Text>
         <AddIcon/>
         </Box>
