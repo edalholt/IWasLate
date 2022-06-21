@@ -40,6 +40,7 @@ const toGroup = () => {
       })
       .catch(function (error) {
         console.log(error);
+        setLoading(false)
       });
     }
 
