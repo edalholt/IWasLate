@@ -164,7 +164,7 @@ const groupPage = () => {
         </Flex>
         </Box>
 
-        <Flex direction={'column'} minHeight={'90vh'}>
+        <Flex direction={'column'} minHeight={'85vh'}>
         <Wrap spacing='70px' m={5} justify='center'>
         {groupData.memberData.map(member => 
         <WrapItem>
