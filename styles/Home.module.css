@@ -30,8 +30,8 @@
 
 .scrollBox {
   z-index: 3;
-  min-height: 100vh;
-  margin-top: -100vh;
+  min-height: 110vh;
+  margin-top: -110vh;
   position: relative;
   background-color: #354f52de;
   background-image: linear-gradient(45deg, #075568bc 0%, #40a3aea1 100%);
