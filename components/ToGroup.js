@@ -46,7 +46,7 @@ const toGroup = () => {
 
     return (
         <>
-        <Box _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'>
+        <Box background={'white'} _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'>
         <Box p={6} minWidth={400}  minHeight={200}>
         <FormControl isInvalid={isError}>
             <FormLabel>Group name</FormLabel>
