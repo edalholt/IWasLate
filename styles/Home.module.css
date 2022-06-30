@@ -1,15 +1,46 @@
-.container {
-  padding: 0 2rem;
-}
-
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.mainWrapper {
+  height: 200vh;
+}
+
+.scrollBox {
+  min-height: 100vh;
+  margin-top: -100vh;
+  position: relative;
+  background-color: #354f52de;
+  background-image: linear-gradient(45deg, #075568bc 0%, #40a3aea1 100%);
+  backdrop-filter: saturate(180%) blur(0.5px);
+  border-radius: 100% 0% 0 0 / 30% 74% 26% 70%;
+}
+
+.scrollBoxText {
+  min-height: 47rem;
+  padding: 10rem;
+  text-align: center;
+  color: #ffffff;
+}
+@media (max-width : 520px) {
+  .scrollBoxText {
+    padding: 10rem 2rem;
+  }
+}
+
+.demo {
+  margin-top: -20rem;
+  padding: 4rem;
+  background-image: linear-gradient(45deg, #eeecec 0%, #3b5255 100%);
+  backdrop-filter: saturate(180%) blur(0.5px);
+  border-radius: 10% 30% 0 0;
 }
 
 .footer {
