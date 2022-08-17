@@ -133,7 +133,7 @@ const groupPage = () => {
         <Text fontSize="xl" color={"white"}>{groupData.groupName}</Text>
         <Spacer />
         <Text fontSize='md' color={"white"} p={1}>Minute view</Text>
-        <Switch size='md' p={2} colorScheme={"blackAlpha"} onChange={() => groupUpdate({penaltyView: !groupData.penaltyView})}/>
+        <Switch size='md' p={2} defaultChecked={groupData.penaltyView} colorScheme={"blackAlpha"} onChange={() => groupUpdate({penaltyView: !groupData.penaltyView})}/>
         <Text fontSize='md' color={"white"} p={1}>Penalty view</Text>
         <Spacer />
         <Menu>
