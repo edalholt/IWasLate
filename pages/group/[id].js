@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { background, Image } from '@chakra-ui/react'
 import { React, useEffect, useState } from "react";
-import { Box, HStack, Text, CloseButton, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
+import { Box, Switch, HStack, Text, CloseButton, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
 import { SettingsIcon, HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
@@ -131,6 +131,10 @@ const groupPage = () => {
         <Box p={3} bgGradient='linear(to-r, #2b92ba, #033f57)'>
         <Flex>
         <Text fontSize="xl" color={"white"}>{groupData.groupName}</Text>
+        <Spacer />
+        <Text fontSize='md' color={"white"} p={1}>Minute view</Text>
+        <Switch size='md' defaultChecked p={2} colorScheme={"blackAlpha"} onChange={(ev) => console.log(ev)}/>
+        <Text fontSize='md' color={"white"} p={1}>Penalty view</Text>
         <Spacer />
         <Menu>
             <MenuButton
