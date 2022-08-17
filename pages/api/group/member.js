@@ -8,6 +8,7 @@ export default async (req, res) => {
        const memberData = {
           name: body.name,
           amount: 0,
+          minutes: 0,
       };
       
       await db.collection("group").doc(body.groupId).collection("members").add(memberData)
