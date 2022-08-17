@@ -3,6 +3,10 @@ import { background, Image, VStack } from '@chakra-ui/react'
 import { React, useEffect, useState } from "react";
 import { Box, Switch, HStack, Text, CloseButton, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
 import { SettingsIcon, HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { Image } from '@chakra-ui/react'
+import { React, useEffect, useState } from "react";
+import { Box, HStack, Text, CloseButton, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
+import { HamburgerIcon, AddIcon, DeleteIcon, UpDownIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
 import UrlBox from "../../components/URL";
@@ -157,7 +161,7 @@ const groupPage = () => {
                 Beer mode
                 </MenuItem>
                 )}
-                <MenuItem onClick={onOpenPenalty} icon={<SettingsIcon />}>
+                <MenuItem onClick={onOpenPenalty} icon={<UpDownIcon />}>
                 Change penalty size
                 </MenuItem>
                 <MenuItem onClick={deleteGroup} icon={<DeleteIcon />}>
@@ -168,7 +172,7 @@ const groupPage = () => {
         </Flex>
         </Box>
 
-        <Flex direction={'column'} minHeight={'90vh'}>
+        <Flex direction={'column'} minHeight={'85vh'}>
         <Wrap spacing='70px' m={5} justify='center'>
         {groupData.memberData.map(member => 
         <WrapItem>
@@ -255,7 +259,7 @@ const groupPage = () => {
           <FormControl>
             <FormLabel>Amount</FormLabel>
             <Input
-              id='name'
+              id='penaltySize'
               type='number'
               value={penaltySize}
               onChange={handlePenaltyChange}
