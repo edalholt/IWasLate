@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { background, Image } from '@chakra-ui/react'
+import { background, Image, VStack } from '@chakra-ui/react'
 import { React, useEffect, useState } from "react";
 import { Box, Switch, HStack, Text, CloseButton, FormControl, Progress, FormLabel, Flex, FormErrorMessage, Alert, AlertIcon, AlertTitle, Spacer, Menu, Wrap, WrapItem, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, MenuButton, MenuList, IconButton, MenuItem, Input } from '@chakra-ui/react'
 import { SettingsIcon, HamburgerIcon, AddIcon, DeleteIcon, CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
@@ -46,10 +46,10 @@ const groupPage = () => {
         });
     };
 
-    const penaltyUpdate = async (key, amount) => {
+    const penaltyUpdate = async (key, data) => {
         axios.post(`/api/group/${id}/penalty`, {
             memberID: key,
-            amount: amount
+            ...data,
           })
           .then(function (response) {
             console.log(response);
@@ -133,7 +133,7 @@ const groupPage = () => {
         <Text fontSize="xl" color={"white"}>{groupData.groupName}</Text>
         <Spacer />
         <Text fontSize='md' color={"white"} p={1}>Minute view</Text>
-        <Switch size='md' defaultChecked p={2} colorScheme={"blackAlpha"} onChange={(ev) => console.log(ev)}/>
+        <Switch size='md' p={2} colorScheme={"blackAlpha"} onChange={() => groupUpdate({penaltyView: !groupData.penaltyView})}/>
         <Text fontSize='md' color={"white"} p={1}>Penalty view</Text>
         <Spacer />
         <Menu>
@@ -178,16 +178,29 @@ const groupPage = () => {
         <Text fontSize="xl">{member.name}</Text>
         
         <HStack justify={'center'} pt={3}>
-        <ChevronDownIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, -1)}/>
-        {!groupData.icon ? (
-          <Text pl={3} pr={3} fontSize="2xl">{member.amount * groupData.penaltySize}</Text>
+        {groupData.penaltyView ? (
+          <>
+          <ChevronDownIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, {amount: -1})}/>
+          {!groupData.icon ? (
+            <Text pl={3} pr={3} fontSize="2xl">{member.amount * groupData.penaltySize}</Text>
+          ) : (
+            <>
+            <Text pl={3} pr={3} fontSize="2xl">{member.amount}</Text>
+            <Image src="/beer.png" width={6}/>
+            </>
+          )}
+          <ChevronUpIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, {amount: 1})}/>
+          </>
         ) : (
           <>
-          <Text pl={3} pr={3} fontSize="2xl">{member.amount}</Text>
-          <Image src="/beer.png" width={6}/>
+          <Text background={"grey"} _hover={{ cursor: "pointer", background: "teal.600" }} color={"white"} lineHeight={"7"} borderRadius={"50%"} w={7} h={7} fontSize="sm" onClick={() => penaltyUpdate(member.id, {minutes: 5})}>+5</Text>
+          <Text background={"grey"} _hover={{ cursor: "pointer", background: "teal.600" }} color={"white"} lineHeight={"7"} borderRadius={"50%"} w={7} h={7} fontSize="sm" onClick={() => penaltyUpdate(member.id, {minutes: 1})}>+1</Text>
+          <Text pl={3} fontSize="xl">{member.minutes}</Text>
+          <Text pr={3} fontSize="xl">min</Text>
+          <Text background={"grey"} _hover={{ cursor: "pointer", background: "teal.600" }} color={"white"} lineHeight={"7"} borderRadius={"50%"} w={7} h={7} fontSize="sm" onClick={() => penaltyUpdate(member.id, {minutes: -1})}>-1</Text>
+          <Text background={"grey"} _hover={{ cursor: "pointer", background: "teal.600" }} color={"white"} lineHeight={"7"} borderRadius={"50%"} w={7} h={7} fontSize="sm" onClick={() => penaltyUpdate(member.id, {minutes: -5})}>-5</Text>
           </>
         )}
-        <ChevronUpIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => penaltyUpdate(member.id, 1)}/>
         </HStack>
         </Box>
         </Box>

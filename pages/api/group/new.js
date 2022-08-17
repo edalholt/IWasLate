@@ -8,6 +8,7 @@ export default async (req, res) => {
       const group = {
           groupName: body.groupName,
           icon: false,
+          penaltyView: false,
           penaltySize: 50,
       };
       
