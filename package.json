@@ -9,24 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.0.2",
-    "@chakra-ui/react": "^2.2.1",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/react": "^2.10.4",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^5.8.3",
-    "axios": "^0.27.2",
-    "dashify": "^2.0.0",
-    "firebase": "^9.8.3",
-    "firebase-admin": "^10.3.0",
-    "firestore": "^1.1.6",
-    "framer-motion": "^6.3.11",
-    "next": "12.1.6",
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
-    "sass": "^1.52.3"
+    "axios": "^1.7.9",
+    "firebase": "^11.2.0",
+    "firebase-admin": "^13.0.2",
+    "next": "15.1.5",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "eslint": "8.17.0",
-    "eslint-config-next": "12.1.6"
+    "eslint": "^9",
+    "eslint-config-next": "15.1.5"
   }
 }

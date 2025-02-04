@@ -16,12 +16,12 @@ function BoxDemo() {
           <Box _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'  minHeight={150}>
           <CloseButton size={'md'}  />
           <Box minWidth={280} p={5} align={'center'}>
-          <Text fontSize="xl">
+          <Box fontSize="xl">
           <Editable defaultValue='Jakob'>
             <EditablePreview />
             <EditableInput />
           </Editable>
-          </Text>
+          </Box>
           
           <HStack justify={'center'} pt={3}>
           <ChevronDownIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => setAmount(amount-50)}/>
@@ -39,12 +39,12 @@ function BoxDemo() {
           <Box _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'  minHeight={150}>
           <CloseButton size={'md'}  />
           <Box minWidth={280} p={5} align={'center'}>
-          <Text fontSize="xl">
-          <Editable defaultValue='Emma'>
-            <EditablePreview />
-            <EditableInput />
-          </Editable>
-          </Text>
+          <Box fontSize="xl">
+            <Editable defaultValue="Emma">
+              <EditablePreview />
+              <EditableInput />
+            </Editable>
+          </Box>
           
           <HStack justify={'center'} pt={3}>
           <ChevronDownIcon cursor={'pointer'} w={7} h={7} _hover={{ color: "teal.600" }} onClick={() => setBeer(beer-1)}/>

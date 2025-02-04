@@ -167,7 +167,7 @@ const groupPage = () => {
         <Flex direction={'column'} minHeight={'85vh'}>
         <Wrap spacing='70px' m={5} justify='center'>
         {groupData.memberData.map(member => 
-        <WrapItem>
+        <WrapItem key={member.id}>
         <Box _hover={{ borderColor: "teal.600" }} borderWidth='1px' borderRadius='lg'  minHeight={150}>
         <CloseButton size={'md'} onClick={() => removeMember(member.id)} />
         <Box minWidth={300} p={5} align={'center'}>
